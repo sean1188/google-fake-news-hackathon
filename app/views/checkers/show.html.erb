@@ -1,2 +1,7 @@
-<h1>Checkers#show</h1>
-<p>Find me in app/views/checkers/show.html.erb</p>
+<h1 class="mt-4"><%= @checker.name %></h1>
+<hr>
+<h3>Description</h3>
+<p><%= @checker.description %></p>
+<h3>Score</h3>
+<a class="btn btn-primary btn-large text-light mb-4"><%= @checker.score %></a>
+<h3>History</h3>
