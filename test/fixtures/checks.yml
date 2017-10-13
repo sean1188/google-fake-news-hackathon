@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  article: one
+  checker: one
+  old_score: 9.99
+  new_score: 9.99
+
+two:
+  article: two
+  checker: two
+  old_score: 9.99
+  new_score: 9.99

@@ -3,5 +3,5 @@
 <h3>Description</h3>
 <p><%= @checker.description %></p>
 <h3>Score</h3>
-<a class="btn btn-primary btn-large text-light mb-4"><%= @checker.score %></a>
+<a class="btn btn-<%= score_color(@checker.score) %> btn-lg text-light mb-4"><%= @checker.score %></a>
 <h3>History</h3>

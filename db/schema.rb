@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013074734) do
+ActiveRecord::Schema.define(version: 20171013094912) do
+
+  create_table "articles", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "checkers", force: :cascade do |t|
     t.decimal "score"
@@ -19,6 +25,17 @@ ActiveRecord::Schema.define(version: 20171013074734) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "checks", force: :cascade do |t|
+    t.integer "article_id"
+    t.integer "checker_id"
+    t.decimal "old_score"
+    t.decimal "new_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_checks_on_article_id"
+    t.index ["checker_id"], name: "index_checks_on_checker_id"
   end
 
 end
