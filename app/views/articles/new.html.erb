@@ -1,8 +1,10 @@
-<h1>Article</h1>
-<%= form_with do |form| %>
-    <div class="form-group">
-      <%= label :field, "Article Content" %>
-      <%= text_area_tag(:field, nil, class: 'form-control') %>
-      <%= form.submit('Submit', class: 'btn btn-primary') %>
-    </div>
+<h1 class="mt-4">Fact checker</h1>
+<p>MetaFact uses the algorithms built by many amazing people and aggregates (which means "somewhat averages") the results. </p>
+<hr>
+<%= form_for @article do |f| %>
+  <div class="form-group">
+    <%= f.label :content, "Paste the content here" %>
+    <%= f.text_area :content, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
 <% end %>

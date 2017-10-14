@@ -1,15 +1,15 @@
 module Quickmaths
   # Main
-  def rank_sources(scores, weights)
-    nodes = scores.zip(weights.map{|weight| weight/weights.sum.to_r})
+  def self.rank_sources(scores, weights)
+    nodes = scores.zip(weights.map {|weight| weight/weights.sum.to_r})
     # puts nodes.inspect
 
     score = calculate_score(nodes, scores)
-    shift_weights = shift_weights (nodes, scores, weights)
+    shift_weights = shift_weights(nodes, scores, weights)
     new_weights = weights.zip(shift_weights).map do |weight, shift|
       weight + shift
     end
-    puts "\nScore: #{score}" 
+    puts "\nScore: #{score}"
     puts "New weights #{new_weights}\n\n"
 
     return new_weights
@@ -18,27 +18,27 @@ module Quickmaths
 
   private
 
-  def calculate_score(nodes, scores)
-     # Weighted Score
-     weighted_score = nodes.map do |score, weight|  
-      score * weight 
+  def self.calculate_score(nodes, scores)
+    # Weighted Score
+    weighted_score = nodes.map do |score, weight|
+      score * weight
     end.sum
     # puts "Weighted scores: #{weighted_score}"
 
     # Unweighted Score
-    unweighted_score = scores.map do |score| 
+    unweighted_score = scores.map do |score|
       score * 1/nodes.length
     end.sum
 
     return [unweighted_score, weighted_score].sum/2.to_r
   end
 
-  def shift_weights(nodes, scores, weights)
-    nodes.map do |score, weight| 
-      correctness = (score > scores.mean ? 1:-1) * 1 - (score - scores.mean).abs
+  def self.shift_weights(nodes, scores, weights)
+    nodes.map do |score, weight|
+      correctness = (score > scores.mean ? 1 : -1) * 1 - (score - scores.mean).abs
       correctness * weight * (1 - (weight - weights.mean).abs)
     end
-  end 
+  end
 
 end
 
@@ -51,7 +51,7 @@ module Enumerable
 
   def standard_deviation
     m = self.sum/self.length.to_f
-    sum = self.inject(0){|accum, i| accum +(i-m)**2 }
+    sum = self.inject(0) {|accum, i| accum +(i-m)**2}
     return Math.sqrt(sum/(self.length - 1).to_f)
   end
 end
@@ -62,11 +62,11 @@ end
 class TestInstance
   include Quickmaths
 
-  @@weights = [1,1,1,1,1,1,1]
+  @@weights = [1, 1, 1, 1, 1, 1, 1]
 
   def test(iter, scores)
     for i in (0..iter) do
-        @@weights = rank_sources(scores, @@weights)
+      @@weights = rank_sources(scores, @@weights)
     end
   end
 
