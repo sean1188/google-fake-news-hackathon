@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013094912) do
+ActiveRecord::Schema.define(version: 20171014043633) do
 
   create_table "articles", force: :cascade do |t|
     t.text "content"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20171013094912) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "fake_id"
+    t.index ["fake_id"], name: "index_checkers_on_fake_id"
   end
 
   create_table "checks", force: :cascade do |t|
