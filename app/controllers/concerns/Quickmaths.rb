@@ -7,20 +7,20 @@ module Quickmaths
     score = calculate_score(nodes, scores)
     shift_weights = shift_weights(nodes, score, weights)
     new_weights = weights.zip(shift_weights).map do |weight, shift|
-      puts "shifting weight #{weight} by #{shift} ---> #{weight+shift}"
+      # puts "shifting weight #{weight} by #{shift} ---> #{weight+shift}"
       weight + shift
     end
 
     new_weights_normalised = new_weights.map do |x|
-      puts "normalises #{x} ---> #{x/(new_weights.max  - new_weights.min)}"
+      # puts "normalises #{x} ---> #{x/(new_weights.max  - new_weights.min)}"
       x/(new_weights.max  - new_weights.min)
     end
 
-    puts "New weights #{new_weights_normalised}\n\n"
-    puts "\nScore: #{score}" 
+    # puts "New weights #{new_weights_normalised}\n\n"
+    # puts "\nScore: #{score}"
     
 
-    return new_weights_normalised
+    return new_weights_normalised, score
 
   end
 
@@ -41,7 +41,7 @@ module Quickmaths
   end
 
   
-  def shift_weights(nodes, final_score, weights)
+  def self.shift_weights(nodes, final_score, weights)
     # Normalised shift unit weights
     shift_weights = nodes.map do |score, weight| 
       correctness = (score > final_score ? 1:-1) * 1 - (score - final_score).abs
