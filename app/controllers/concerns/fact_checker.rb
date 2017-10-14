@@ -40,65 +40,65 @@ module FactChecker
           when 1
             return 0.1
           when 2
-            return 1
+            return 0.2
           when 3
-            return 1
+            return 0.3
           when 4
-            return 0
+            return 0.4
           when 5
-            return 0
+            return 0.5
         end
       when 2
         case content
           when 1
             return 0.2
           when 2
-            return 1
+            return 0.3
           when 3
-            return 1
+            return 0.4
           when 4
-            return 0
+            return 0.5
           when 5
-            return 0
+            return 0.6
         end
       when 3
         case content
           when 1
             return 0.3
           when 2
-            return 1
+            return 0.4
           when 3
-            return 1
+            return 0.5
           when 4
-            return 0
+            return 0.6
           when 5
-            return 0
+            return 0.7
         end
       when 4
         case content
           when 1
             return 0.4
           when 2
-            return 1
+            return 0.5
           when 3
-            return 1
+            return 0.6
           when 4
-            return 0
+            return 0.7
           when 5
-            return 0
+            return 0.8
         end
       when 5
         case content
           when 1
             return 0.5
           when 2
-            return 1
+            return 0.6
           when 3
-            return 1
+            return 0.7
           when 4
-            return 0
+            return 0.8
           when 5
-            return 0
+            return 0.9
         end
     end
 
