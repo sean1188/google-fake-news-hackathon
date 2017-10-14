@@ -1,26 +1,32 @@
 module FactChecker
   def self.perform(article)
     checkers = Checker.all
+    # Array
     article_scores =
         checkers.map do |checker|
-          mock_request(checker.id, article.content.to_i)
+          puts("Checker ID: #{checker.fake_id}, Article Content: #{article.content.to_i}")
+          mock_request(checker.fake_id.to_i, article.content.to_i)
         end
-    old_checker_scores =
+    puts("Article Scores: #{article_scores}")
+    # Array
+    old_checker_weight =
         checkers.map do |checker|
           checker.score
         end
+    puts("Old Checker Weight: #{old_checker_weight}")
 
-    new_checker_scores = Quickmaths.rank_sources(article_scores, old_checker_scores)
+    new_checker_weight = Quickmaths.rank_sources(article_scores, old_checker_weight)
     checkers.each_with_index do |checker, index|
-      Check.create(article.id, checker.id, old_checker_scores[index], new_checker_scores[index])
-      checker.update(score: new_checker_scores[index])
+      Check.create(article_id: article.id, checker_id: checker.id, old_score: old_checker_weight[index], new_score: new_checker_weight[index])
+      # checker.update(score: new_checker_weight[index])
     end
+    puts("New Checker Weight: #{new_checker_weight}")
     return article_scores
 
   end
 
   private
-  def mock_request(id, content)
+  def self.mock_request(id, content)
     case id
       when 1
         case content
@@ -87,7 +93,6 @@ module FactChecker
           when 5
             return 0
         end
-
     end
 
   end
