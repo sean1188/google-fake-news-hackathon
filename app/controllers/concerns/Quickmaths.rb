@@ -5,14 +5,22 @@ module Quickmaths
     # puts nodes.inspect
 
     score = calculate_score(nodes, scores)
-    shift_weights = shift_weights (nodes, scores, weights)
+    shift_weights = shift_weights(nodes, score, weights)
     new_weights = weights.zip(shift_weights).map do |weight, shift|
+      puts "shifting weight #{weight} by #{shift} ---> #{weight+shift}"
       weight + shift
     end
-    puts "\nScore: #{score}" 
-    puts "New weights #{new_weights}\n\n"
 
-    return new_weights
+    new_weights_normalised = new_weights.map do |x|
+      puts "normalises #{x} ---> #{x/(new_weights.max  - new_weights.min)}"
+      x/(new_weights.max  - new_weights.min)
+    end
+
+    puts "New weights #{new_weights_normalised}\n\n"
+    puts "\nScore: #{score}" 
+    
+
+    return new_weights_normalised
 
   end
 
@@ -23,7 +31,6 @@ module Quickmaths
      weighted_score = nodes.map do |score, weight|  
       score * weight 
     end.sum
-    # puts "Weighted scores: #{weighted_score}"
 
     # Unweighted Score
     unweighted_score = scores.map do |score| 
@@ -33,10 +40,14 @@ module Quickmaths
     return [unweighted_score, weighted_score].sum/2.to_r
   end
 
-  def shift_weights(nodes, scores, weights)
-    nodes.map do |score, weight| 
-      correctness = (score > scores.mean ? 1:-1) * 1 - (score - scores.mean).abs
-      correctness * weight * (1 - (weight - weights.mean).abs)
+  
+  def shift_weights(nodes, final_score, weights)
+    # Normalised shift unit weights
+    shift_weights = nodes.map do |score, weight| 
+      correctness = (score > final_score ? 1:-1) * 1 - (score - final_score).abs
+    end
+    shift_weights.map do |x|
+      (x  - shift_weights.min) / shift_weights.max - shift_weights.min
     end
   end 
 
@@ -73,4 +84,4 @@ class TestInstance
 end
 
 # TestInstance.new.rank_sources [1, 0.5, 0.7], [1,1,1]
-# TestInstance.new.test(100, [0.9, 0.3, 0.2, 0.124,0.5, 0.78, 0.45])
+# TestInstance.new.test(1000, [0.9, 0.3, 0.2, 0.124,0.5, 0.78, 0.45])
