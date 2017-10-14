@@ -8,7 +8,11 @@ class ApiController < ApplicationController
     article = Article.new(content: params[:content])
     puts("Article Content is #{article.content}")
     result = FactChecker.perform(article)
-    puts("result is #{result}")
-    render :json => result
+    if result.nil?
+      render :json => {:error => 'Content must be between 1-5'}
+    else
+      puts("result is #{result}")
+      render :json => result
+    end
   end
 end
